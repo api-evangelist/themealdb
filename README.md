@@ -28,11 +28,12 @@ Free Recipe API Support. The API and site will always remain free at point of ac
 
 #### Tags:
 
- - API
+ - Recipes, Random
 
 #### Properties
 
 - [Documentation](https://www.themealdb.com/api.php)
+- [OpenAPI](properties/themealdb-openapi.yml)
 
 ## Maintainers
 
