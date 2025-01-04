@@ -1,0 +1,181 @@
+openapi: 3.1.0
+info:
+  title: Free Recipe API
+  description: >
+    The Free Recipe API allows you to search and filter meals, get detailed
+    information about meals, and access meal and ingredient images.
+
+
+    - Test API Key: `1` (For development and educational use)
+
+    - Production API Key: Available for supporters with additional features.
+  version: 1.0.0
+  contact:
+    email: thedatadb@gmail.com
+servers:
+  - url: https://www.themealdb.com/api/json/v1/1
+    description: Free Recipe API Endpoint
+  - url: https://www.themealdb.com/api/json/v1/{apiVersion}
+    description: API endpoint with version placeholder
+    variables:
+      apiVersion:
+        default: 1
+        enum:
+          - 1
+paths:
+  /search.php:
+    get:
+      summary: Search meal by name
+      parameters:
+        - name: s
+          in: query
+          required: true
+          description: The name of the meal to search for.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of meals matching the search query.
+          content:
+            application/json:
+              schema:
+                type: object
+  /'search.php':
+    get:
+      summary: List all meals by first letter
+      parameters:
+        - name: f
+          in: query
+          required: true
+          description: The first letter of the meals to list.
+          schema:
+            type: string
+            maxLength: 1
+      responses:
+        '200':
+          description: A list of meals starting with the specified letter.
+          content:
+            application/json:
+              schema:
+                type: object
+  /lookup.php:
+    get:
+      summary: Lookup full meal details by ID
+      parameters:
+        - name: i
+          in: query
+          required: true
+          description: The ID of the meal to lookup.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Full meal details.
+          content:
+            application/json:
+              schema:
+                type: object
+  /random.php:
+    get:
+      summary: Lookup a single random meal
+      responses:
+        '200':
+          description: Details of a random meal.
+          content:
+            application/json:
+              schema:
+                type: object
+  /categories.php:
+    get:
+      summary: List all meal categories
+      responses:
+        '200':
+          description: A list of meal categories.
+          content:
+            application/json:
+              schema:
+                type: object
+  /list.php:
+    get:
+      summary: List all Categories, Areas, Ingredients
+      parameters:
+        - name: c
+          in: query
+          required: false
+          description: List all categories.
+          schema:
+            type: string
+        - name: a
+          in: query
+          required: false
+          description: List all areas.
+          schema:
+            type: string
+        - name: i
+          in: query
+          required: false
+          description: List all ingredients.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of categories, areas, or ingredients.
+          content:
+            application/json:
+              schema:
+                type: object
+  /filter.php:
+    get:
+      summary: Filter meals by main ingredient, category, or area
+      parameters:
+        - name: i
+          in: query
+          required: false
+          description: Filter by main ingredient.
+          schema:
+            type: string
+        - name: c
+          in: query
+          required: false
+          description: Filter by category.
+          schema:
+            type: string
+        - name: a
+          in: query
+          required: false
+          description: Filter by area.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of meals matching the filter.
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      name: apiKey
+      in: query
+  schemas:
+    Meal:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        category:
+          type: string
+        area:
+          type: string
+        instructions:
+          type: string
+        thumbnail:
+          type: string
+        ingredients:
+          type: array
+          items:
+            type: string
