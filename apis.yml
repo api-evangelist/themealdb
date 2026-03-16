@@ -25,7 +25,7 @@ type: Contract
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 created: '2024-11-14'
-modified: '2025-01-03'
+modified: '2026-03-16'
 position: Consuming
 description: >-
   TheMealDB is a comprehensive online platform that offers a vast collection of
@@ -38,5 +38,5 @@ description: >-
   levels to explore new dishes and flavors in the comfort of their own kitchen.
 maintainers:
   - FN: Kin Lane
-    email: info@apievangelist.com
+    email: kin@apievangelist.com
 specificationVersion: '0.19'
