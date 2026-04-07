@@ -28,14 +28,12 @@ created: '2024-11-14'
 modified: '2026-03-16'
 position: Consuming
 description: >-
-  TheMealDB is a comprehensive online platform that offers a vast collection of
-  recipes from around the world. Users can search for recipes based on specific
-  ingredients, cuisine types, dietary restrictions, and more. The website also
-  provides step-by-step instructions, cooking tips, and nutritional information
-  for each recipe. In addition, users can save their favorite recipes, create
-  shopping lists, and even plan out their meals for the week using the meal
-  planner feature. TheMealDB aims to inspire and empower home cooks of all skill
-  levels to explore new dishes and flavors in the comfort of their own kitchen.
+  TheMealDB is a comprehensive online platform that offers a vast collection of recipes
+  from around the world. Users can search for recipes based on specific ingredients,
+  cuisine types, dietary restrictions, and more. The website also provides step-by-step
+  instructions, cooking tips, and nutritional information for each recipe. In addition,
+  users can save their favorite recipes, create shopping lists, and even plan out
+  their meals for the week using the meal planner feature.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
