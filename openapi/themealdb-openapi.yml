@@ -1,1 +1,418 @@
-{}
+openapi: 3.0.3
+info:
+  title: TheMealDB API
+  description: >-
+    An open, crowd-sourced database of recipes from around the world with a
+    free API. Search meals by name, first letter, ingredient, category, or
+    area/region. Includes detailed recipes with ingredients, measurements,
+    instructions, and images. The API and site will always remain free at point
+    of access.
+  version: "1.0"
+  contact:
+    url: https://www.themealdb.com/
+  x-generated-from: documentation
+servers:
+  - url: https://www.themealdb.com/api/json/v1/1
+    description: Production API server (free tier with API key 1)
+security: []
+tags:
+  - name: Search
+    description: Search for meals and ingredients
+  - name: Lookup
+    description: Retrieve details by ID or random meal
+  - name: Filter
+    description: Filter meals by attributes
+  - name: List
+    description: List available categories, areas, and ingredients
+paths:
+  /search.php:
+    get:
+      operationId: searchMeals
+      summary: TheMealDB Search Meals by Name or First Letter
+      description: >-
+        Search for meals by name using the 's' parameter, or browse meals
+        starting with a specific first letter using the 'f' parameter.
+      tags:
+        - Search
+      parameters:
+        - name: s
+          in: query
+          description: Meal name to search (e.g. Arrabiata, chicken)
+          required: false
+          schema:
+            type: string
+            example: Arrabiata
+        - name: f
+          in: query
+          description: First letter to browse meals alphabetically (single letter a-z)
+          required: false
+          schema:
+            type: string
+            example: a
+      responses:
+        '200':
+          description: Successful response with meal list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MealsResponse'
+              examples:
+                SearchMeals200Example:
+                  summary: Default searchMeals 200 response
+                  x-microcks-default: true
+                  value:
+                    meals:
+                      - idMeal: "52772"
+                        strMeal: Teriyaki Chicken Casserole
+                        strCategory: Chicken
+                        strArea: Japanese
+                        strInstructions: Preheat oven to 350 degrees. Combine soy sauce, honey, garlic, ginger, and pepper.
+                        strMealThumb: https://www.themealdb.com/images/media/meals/wvpsxx1468256321.jpg
+                        strTags: Meat,Casserole
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /lookup.php:
+    get:
+      operationId: lookupMealById
+      summary: TheMealDB Lookup Meal Details by ID
+      description: Look up the full details of a meal by its ID using the 'i' parameter.
+      tags:
+        - Lookup
+      parameters:
+        - name: i
+          in: query
+          description: Meal ID to look up
+          required: true
+          schema:
+            type: string
+            example: "52772"
+      responses:
+        '200':
+          description: Full meal details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MealsResponse'
+              examples:
+                LookupMealById200Example:
+                  summary: Default lookupMealById 200 response
+                  x-microcks-default: true
+                  value:
+                    meals:
+                      - idMeal: "52772"
+                        strMeal: Teriyaki Chicken Casserole
+                        strCategory: Chicken
+                        strArea: Japanese
+                        strInstructions: Preheat oven to 350 degrees.
+                        strMealThumb: https://www.themealdb.com/images/media/meals/wvpsxx1468256321.jpg
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /random.php:
+    get:
+      operationId: getRandomMeal
+      summary: TheMealDB Get a Random Meal
+      description: Retrieve a single random meal with full recipe details.
+      tags:
+        - Lookup
+      responses:
+        '200':
+          description: A random meal with complete recipe
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MealsResponse'
+              examples:
+                GetRandomMeal200Example:
+                  summary: Default getRandomMeal 200 response
+                  x-microcks-default: true
+                  value:
+                    meals:
+                      - idMeal: "53049"
+                        strMeal: Apam balik
+                        strCategory: Dessert
+                        strArea: Malaysian
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /categories.php:
+    get:
+      operationId: listAllCategories
+      summary: TheMealDB List All Meal Categories
+      description: >-
+        Retrieve all meal categories with thumbnails and descriptions.
+      tags:
+        - List
+      responses:
+        '200':
+          description: List of all meal categories
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoriesResponse'
+              examples:
+                ListAllCategories200Example:
+                  summary: Default listAllCategories 200 response
+                  x-microcks-default: true
+                  value:
+                    categories:
+                      - idCategory: "1"
+                        strCategory: Beef
+                        strCategoryThumb: https://www.themealdb.com/images/category/beef.png
+                        strCategoryDescription: Beef is the culinary name for meat from cattle.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /filter.php:
+    get:
+      operationId: filterMeals
+      summary: TheMealDB Filter Meals by Ingredient, Category, or Area
+      description: >-
+        Filter meals by a single ingredient ('i'), category ('c'), or
+        area/region ('a'). Multi-ingredient filtering is available to
+        premium supporters.
+      tags:
+        - Filter
+      parameters:
+        - name: i
+          in: query
+          description: Filter by main ingredient
+          required: false
+          schema:
+            type: string
+            example: chicken_breast
+        - name: c
+          in: query
+          description: Filter by category
+          required: false
+          schema:
+            type: string
+            example: Seafood
+        - name: a
+          in: query
+          description: Filter by area/region of origin
+          required: false
+          schema:
+            type: string
+            example: Canadian
+      responses:
+        '200':
+          description: Filtered meal list with summary information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FilterResponse'
+              examples:
+                FilterMeals200Example:
+                  summary: Default filterMeals 200 response
+                  x-microcks-default: true
+                  value:
+                    meals:
+                      - strMeal: Brown Stew Chicken
+                        strMealThumb: https://www.themealdb.com/images/media/meals/sypxpx1515365095.jpg
+                        idMeal: "52772"
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /list.php:
+    get:
+      operationId: listFilterValues
+      summary: TheMealDB List Filter Values for Categories, Areas, or Ingredients
+      description: >-
+        List all available categories ('c=list'), areas ('a=list'), or
+        ingredients ('i=list') for use as filter parameters.
+      tags:
+        - List
+      parameters:
+        - name: c
+          in: query
+          description: Set to 'list' to retrieve all categories
+          required: false
+          schema:
+            type: string
+            enum:
+              - list
+        - name: a
+          in: query
+          description: Set to 'list' to retrieve all areas/regions
+          required: false
+          schema:
+            type: string
+            enum:
+              - list
+        - name: i
+          in: query
+          description: Set to 'list' to retrieve all ingredients
+          required: false
+          schema:
+            type: string
+            enum:
+              - list
+      responses:
+        '200':
+          description: List of available filter values
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse'
+              examples:
+                ListFilterValues200Example:
+                  summary: Default listFilterValues 200 response
+                  x-microcks-default: true
+                  value:
+                    meals:
+                      - strCategory: Beef
+                      - strCategory: Chicken
+                      - strCategory: Dessert
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+components:
+  schemas:
+    Meal:
+      type: object
+      description: Full meal details including ingredients, instructions, and media
+      properties:
+        idMeal:
+          type: string
+          description: Unique meal identifier
+          example: "52772"
+        strMeal:
+          type: string
+          description: Meal name
+          example: Teriyaki Chicken Casserole
+        strCategory:
+          type: string
+          description: Meal category
+          example: Chicken
+        strArea:
+          type: string
+          description: Cuisine area/region of origin
+          example: Japanese
+        strInstructions:
+          type: string
+          description: Step-by-step preparation instructions
+        strMealThumb:
+          type: string
+          description: Thumbnail image URL
+          example: https://www.themealdb.com/images/media/meals/wvpsxx1468256321.jpg
+        strTags:
+          type: string
+          description: Comma-separated tags
+          nullable: true
+        strYoutube:
+          type: string
+          description: YouTube video URL for the recipe
+          nullable: true
+        strIngredient1:
+          type: string
+          description: First ingredient
+          nullable: true
+        strIngredient2:
+          type: string
+          description: Second ingredient
+          nullable: true
+        strIngredient3:
+          type: string
+          description: Third ingredient
+          nullable: true
+        strMeasure1:
+          type: string
+          description: Measure for first ingredient
+          nullable: true
+        strMeasure2:
+          type: string
+          description: Measure for second ingredient
+          nullable: true
+        strMeasure3:
+          type: string
+          description: Measure for third ingredient
+          nullable: true
+        strSource:
+          type: string
+          description: Source URL for the recipe
+          nullable: true
+        dateModified:
+          type: string
+          description: Date last modified
+          nullable: true
+
+    MealsResponse:
+      type: object
+      description: Response containing a list of meals
+      properties:
+        meals:
+          type: array
+          description: Array of meal objects; null if no results found
+          nullable: true
+          items:
+            $ref: '#/components/schemas/Meal'
+
+    Category:
+      type: object
+      description: Meal category with thumbnail and description
+      properties:
+        idCategory:
+          type: string
+          description: Unique category identifier
+          example: "1"
+        strCategory:
+          type: string
+          description: Category name
+          example: Beef
+        strCategoryThumb:
+          type: string
+          description: Category thumbnail image URL
+        strCategoryDescription:
+          type: string
+          description: Description of the category
+
+    CategoriesResponse:
+      type: object
+      description: Response containing list of meal categories
+      properties:
+        categories:
+          type: array
+          description: Array of category objects
+          items:
+            $ref: '#/components/schemas/Category'
+
+    FilterResponse:
+      type: object
+      description: Filtered meal list with summary information only
+      properties:
+        meals:
+          type: array
+          description: Array of meal summaries
+          nullable: true
+          items:
+            type: object
+            properties:
+              strMeal:
+                type: string
+                description: Meal name
+              strMealThumb:
+                type: string
+                description: Thumbnail URL
+              idMeal:
+                type: string
+                description: Meal ID
+
+    ListResponse:
+      type: object
+      description: List of available filter values
+      properties:
+        meals:
+          type: array
+          description: Array of list items
+          items:
+            type: object
+            additionalProperties:
+              type: string

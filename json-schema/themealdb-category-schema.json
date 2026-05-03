@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/themealdb/refs/heads/main/json-schema/themealdb-category-schema.json",
+  "title": "Category",
+  "description": "Meal category with thumbnail and description",
+  "type": "object",
+  "properties": {
+    "idCategory": {
+      "type": "string",
+      "description": "Unique category identifier",
+      "example": "1"
+    },
+    "strCategory": {
+      "type": "string",
+      "description": "Category name",
+      "example": "Beef"
+    },
+    "strCategoryThumb": {
+      "type": "string",
+      "description": "Category thumbnail image URL"
+    },
+    "strCategoryDescription": {
+      "type": "string",
+      "description": "Description of the category"
+    }
+  }
+}

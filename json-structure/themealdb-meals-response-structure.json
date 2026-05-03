@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/themealdb/refs/heads/main/json-structure/themealdb-meals-response-structure.json",
+  "name": "MealsResponse",
+  "description": "Response containing a list of meals",
+  "type": "object",
+  "properties": {
+    "meals": {
+      "type": "array",
+      "description": "Array of meal objects; null if no results found",
+      "nullable": true,
+      "items": {
+        "$ref": "#/components/schemas/Meal"
+      }
+    }
+  }
+}

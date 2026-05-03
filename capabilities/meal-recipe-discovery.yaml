@@ -1,0 +1,199 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "TheMealDB Meal Recipe Discovery"
+  description: "Unified workflow for meal recipe discovery, search, and cooking inspiration. Combines search, lookup, filter, and category listing for home cooks, meal planners, and food enthusiasts."
+  tags:
+    - Recipes
+    - Meals
+    - Food
+    - Cooking
+    - Nutrition
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds: []
+
+capability:
+  consumes:
+    - import: mealdb
+      location: ./shared/themealdb.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: meal-discovery-api
+      description: "Unified REST API for meal recipe discovery and cooking inspiration."
+      resources:
+        - path: /v1/meals
+          name: meals
+          description: "Search and browse meal recipes"
+          operations:
+            - method: GET
+              name: search-meals
+              description: "Search for meals by name"
+              call: "mealdb.search-meals"
+              with:
+                s: "rest.s"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/meals/random
+          name: random-meal
+          description: "Get a random meal recipe"
+          operations:
+            - method: GET
+              name: get-random-meal
+              description: "Retrieve a random meal recipe"
+              call: "mealdb.get-random-meal"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/meals/{id}
+          name: meal-detail
+          description: "Full meal recipe details"
+          operations:
+            - method: GET
+              name: lookup-meal
+              description: "Look up a meal by ID"
+              call: "mealdb.lookup-meal-by-id"
+              with:
+                i: "rest.id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/categories
+          name: categories
+          description: "Meal categories"
+          operations:
+            - method: GET
+              name: list-categories
+              description: "List all meal categories"
+              call: "mealdb.list-all-categories"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/meals/filter
+          name: meal-filter
+          description: "Filter meals by attributes"
+          operations:
+            - method: GET
+              name: filter-meals
+              description: "Filter meals by ingredient, category, or area"
+              call: "mealdb.filter-meals"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: meal-discovery-mcp
+      transport: http
+      description: "MCP server for AI-assisted meal recipe discovery and cooking planning."
+      tools:
+        - name: search-meals
+          description: "Search for meal recipes by name (e.g. chicken, pasta, sushi)"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "mealdb.search-meals"
+          with:
+            s: "tools.name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: browse-meals-by-letter
+          description: "Browse all meals starting with a specific letter"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "mealdb.search-meals"
+          with:
+            f: "tools.letter"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: lookup-meal-by-id
+          description: "Get full recipe details for a meal by its ID"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "mealdb.lookup-meal-by-id"
+          with:
+            i: "tools.id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-random-meal
+          description: "Get a completely random meal recipe for cooking inspiration"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "mealdb.get-random-meal"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-all-categories
+          description: "List all meal categories with thumbnails and descriptions"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "mealdb.list-all-categories"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: filter-by-ingredient
+          description: "Find meals that use a specific ingredient"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "mealdb.filter-meals"
+          with:
+            i: "tools.ingredient"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: filter-by-category
+          description: "Filter meals by category (e.g. Chicken, Seafood, Dessert)"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "mealdb.filter-meals"
+          with:
+            c: "tools.category"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: filter-by-area
+          description: "Filter meals by regional cuisine (e.g. Italian, Japanese, Mexican)"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "mealdb.filter-meals"
+          with:
+            a: "tools.area"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-areas
+          description: "List all regional cuisines available in the database"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "mealdb.list-filter-values"
+          with:
+            a: list
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-ingredients
+          description: "List all available ingredients in the database"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "mealdb.list-filter-values"
+          with:
+            i: list
+          outputParameters:
+            - type: object
+              mapping: "$."

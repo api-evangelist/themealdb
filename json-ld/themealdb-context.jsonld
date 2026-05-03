@@ -1,0 +1,101 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "mealdb": "https://www.themealdb.com/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "FilterResponse": "mealdb:FilterResponse",
+    "CategoriesResponse": "mealdb:CategoriesResponse",
+    "MealsResponse": "mealdb:MealsResponse",
+    "Category": "mealdb:Category",
+    "ListResponse": "mealdb:ListResponse",
+    "Meal": "mealdb:Meal",
+    "meals": {
+      "@id": "mealdb:meals",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "strMeal": {
+      "@id": "mealdb:strMeal",
+      "@type": "xsd:string"
+    },
+    "strMealThumb": {
+      "@id": "mealdb:strMealThumb",
+      "@type": "xsd:string"
+    },
+    "idMeal": {
+      "@id": "mealdb:idMeal",
+      "@type": "xsd:string"
+    },
+    "categories": {
+      "@id": "mealdb:categories",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "idCategory": {
+      "@id": "mealdb:idCategory",
+      "@type": "xsd:string"
+    },
+    "strCategory": {
+      "@id": "mealdb:strCategory",
+      "@type": "xsd:string"
+    },
+    "strCategoryThumb": {
+      "@id": "mealdb:strCategoryThumb",
+      "@type": "xsd:string"
+    },
+    "strCategoryDescription": {
+      "@id": "mealdb:strCategoryDescription",
+      "@type": "xsd:string"
+    },
+    "strArea": {
+      "@id": "mealdb:strArea",
+      "@type": "xsd:string"
+    },
+    "strInstructions": {
+      "@id": "mealdb:strInstructions",
+      "@type": "xsd:string"
+    },
+    "strTags": {
+      "@id": "mealdb:strTags",
+      "@type": "xsd:string"
+    },
+    "strYoutube": {
+      "@id": "mealdb:strYoutube",
+      "@type": "xsd:string"
+    },
+    "strIngredient1": {
+      "@id": "mealdb:strIngredient1",
+      "@type": "xsd:string"
+    },
+    "strIngredient2": {
+      "@id": "mealdb:strIngredient2",
+      "@type": "xsd:string"
+    },
+    "strIngredient3": {
+      "@id": "mealdb:strIngredient3",
+      "@type": "xsd:string"
+    },
+    "strMeasure1": {
+      "@id": "mealdb:strMeasure1",
+      "@type": "xsd:string"
+    },
+    "strMeasure2": {
+      "@id": "mealdb:strMeasure2",
+      "@type": "xsd:string"
+    },
+    "strMeasure3": {
+      "@id": "mealdb:strMeasure3",
+      "@type": "xsd:string"
+    },
+    "strSource": {
+      "@id": "mealdb:strSource",
+      "@type": "xsd:string"
+    },
+    "dateModified": {
+      "@id": "mealdb:dateModified",
+      "@type": "xsd:string"
+    }
+  }
+}

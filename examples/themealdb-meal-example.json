@@ -1,0 +1,18 @@
+{
+  "idMeal": "52772",
+  "strMeal": "Teriyaki Chicken Casserole",
+  "strCategory": "Chicken",
+  "strArea": "Japanese",
+  "strInstructions": "Mix all ingredients and cook for 30 minutes.",
+  "strMealThumb": "https://www.themealdb.com/images/media/meals/wvpsxx1468256321.jpg",
+  "strTags": "Chicken,Dinner",
+  "strYoutube": "https://www.youtube.com/watch?v=example",
+  "strIngredient1": "Chicken",
+  "strIngredient2": "Chicken",
+  "strIngredient3": "Chicken",
+  "strMeasure1": "200g",
+  "strMeasure2": "200g",
+  "strMeasure3": "200g",
+  "strSource": "https://example.com/recipe",
+  "dateModified": "example-value"
+}

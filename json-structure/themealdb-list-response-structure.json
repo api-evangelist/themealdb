@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/themealdb/refs/heads/main/json-structure/themealdb-list-response-structure.json",
+  "name": "ListResponse",
+  "description": "List of available filter values",
+  "type": "object",
+  "properties": {
+    "meals": {
+      "type": "array",
+      "description": "Array of list items",
+      "items": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

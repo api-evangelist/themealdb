@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/themealdb/refs/heads/main/json-schema/themealdb-categories-response-schema.json",
+  "title": "CategoriesResponse",
+  "description": "Response containing list of meal categories",
+  "type": "object",
+  "properties": {
+    "categories": {
+      "type": "array",
+      "description": "Array of category objects",
+      "items": {
+        "$ref": "#/components/schemas/Category"
+      }
+    }
+  }
+}

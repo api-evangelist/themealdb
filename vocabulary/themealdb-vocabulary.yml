@@ -1,0 +1,138 @@
+vocabulary: "1.0.0"
+
+info:
+  provider: "TheMealDB"
+  description: "Vocabulary covering meal recipe resources, operations, and personas for TheMealDB API"
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+operational:
+  apis:
+    - namespace: mealdb
+      version: "1.0"
+      baseUrl: https://www.themealdb.com/api/json/v1/1
+      status: active
+
+  resources:
+    - name: meals
+      api: mealdb
+      actions: [search, lookup, filter, random]
+      description: "Meal recipes with ingredients, measurements, instructions, and images"
+    - name: categories
+      api: mealdb
+      actions: [list, filter]
+      description: "Meal categories (Beef, Chicken, Seafood, Dessert, etc.)"
+    - name: areas
+      api: mealdb
+      actions: [list, filter]
+      description: "Regional cuisines (Italian, Japanese, Mexican, etc.)"
+    - name: ingredients
+      api: mealdb
+      actions: [list, filter]
+      description: "Available ingredients in the database"
+
+  actions:
+    - name: search
+      methods: [GET]
+      pattern: query
+    - name: lookup
+      methods: [GET]
+      pattern: read
+    - name: filter
+      methods: [GET]
+      pattern: query
+    - name: list
+      methods: [GET]
+      pattern: read
+    - name: random
+      methods: [GET]
+      pattern: read
+
+  schemas:
+    core:
+      - name: Meal
+        description: "Full meal with ingredients, instructions, area, and media"
+      - name: MealsResponse
+        description: "API response wrapping a list of meals"
+      - name: Category
+        description: "Meal category with thumbnail and description"
+      - name: CategoriesResponse
+        description: "Response wrapping a list of categories"
+      - name: FilterResponse
+        description: "Filtered meal summary list"
+      - name: ListResponse
+        description: "List of available filter values"
+
+  parameters:
+    filters:
+      - name: s
+        description: "Search by meal name"
+      - name: f
+        description: "Browse by first letter"
+      - name: i
+        description: "Filter by ingredient or list ingredients"
+      - name: c
+        description: "Filter by category"
+      - name: a
+        description: "Filter by area/region"
+    identifiers:
+      - name: i
+        description: "Meal ID"
+
+  authentication: []
+
+capability:
+  workflows:
+    - name: meal-recipe-discovery
+      file: capabilities/meal-recipe-discovery.yaml
+      description: "Meal recipe search, lookup, and cooking inspiration workflow"
+      apisUsed: [mealdb]
+      toolCount: 10
+      personas: [Home Cook, Meal Planner, AI Agent]
+
+  personas:
+    - id: home-cook
+      name: Home Cook
+      description: "Person looking for recipes to cook at home"
+      workflows: [meal-recipe-discovery]
+    - id: meal-planner
+      name: Meal Planner
+      description: "User planning meals for the week by category and region"
+      workflows: [meal-recipe-discovery]
+    - id: ai-agent
+      name: AI Agent
+      description: "LLM or AI agent helping users find and plan meals"
+      workflows: [meal-recipe-discovery]
+
+  domains:
+    - name: Recipe Discovery
+      description: "Finding and browsing meal recipes"
+    - name: Meal Planning
+      description: "Planning meals by category, region, or ingredient"
+
+  namespaces:
+    - id: mealdb
+      type: consumed
+      baseUri: https://www.themealdb.com/api/json/v1/1
+    - id: meal-discovery-api
+      type: rest-exposed
+      port: 8080
+    - id: meal-discovery-mcp
+      type: mcp-exposed
+      port: 9090
+
+  binds: []
+
+crossReference:
+  - resource: meals
+    operations: [search-meals, lookup-meal-by-id, get-random-meal]
+    workflows: [meal-recipe-discovery]
+    personas: [Home Cook, Meal Planner, AI Agent]
+  - resource: categories
+    operations: [list-all-categories, filter-by-category]
+    workflows: [meal-recipe-discovery]
+    personas: [Meal Planner, AI Agent]
+  - resource: areas
+    operations: [filter-by-area, list-areas]
+    workflows: [meal-recipe-discovery]
+    personas: [Home Cook, AI Agent]

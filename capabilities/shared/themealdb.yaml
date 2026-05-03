@@ -1,0 +1,233 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "TheMealDB API"
+  description: "Open crowd-sourced meal recipe database with search, lookup, and filter capabilities."
+  tags:
+    - Recipes
+    - Meals
+    - Food
+    - Cooking
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds: []
+
+capability:
+  consumes:
+    - type: http
+      namespace: mealdb
+      baseUri: https://www.themealdb.com/api/json/v1/1
+      description: "Open meal and recipe database API"
+      resources:
+        - name: search
+          path: /search.php
+          description: "Search meals by name or first letter"
+          operations:
+            - name: search-meals
+              method: GET
+              description: "Search for meals by name or first letter"
+              inputParameters:
+                - name: s
+                  in: query
+                  type: string
+                  required: false
+                  description: "Meal name to search"
+                - name: f
+                  in: query
+                  type: string
+                  required: false
+                  description: "First letter to browse alphabetically"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: lookup
+          path: /lookup.php
+          description: "Look up a meal by ID"
+          operations:
+            - name: lookup-meal-by-id
+              method: GET
+              description: "Retrieve full meal details by ID"
+              inputParameters:
+                - name: i
+                  in: query
+                  type: string
+                  required: true
+                  description: "Meal ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: random
+          path: /random.php
+          description: "Get a random meal"
+          operations:
+            - name: get-random-meal
+              method: GET
+              description: "Retrieve a single random meal with full recipe"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: categories
+          path: /categories.php
+          description: "Get all meal categories"
+          operations:
+            - name: list-all-categories
+              method: GET
+              description: "Get all meal categories with thumbnails and descriptions"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: filter
+          path: /filter.php
+          description: "Filter meals by ingredient, category, or area"
+          operations:
+            - name: filter-meals
+              method: GET
+              description: "Filter meals by ingredient, category, or region"
+              inputParameters:
+                - name: i
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by ingredient"
+                - name: c
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by category"
+                - name: a
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by area/region"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: list
+          path: /list.php
+          description: "List available categories, areas, or ingredients"
+          operations:
+            - name: list-filter-values
+              method: GET
+              description: "List all available filter values for categories, areas, or ingredients"
+              inputParameters:
+                - name: c
+                  in: query
+                  type: string
+                  required: false
+                  description: "Set to 'list' for categories"
+                - name: a
+                  in: query
+                  type: string
+                  required: false
+                  description: "Set to 'list' for areas"
+                - name: i
+                  in: query
+                  type: string
+                  required: false
+                  description: "Set to 'list' for ingredients"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8101
+      namespace: mealdb-rest
+      resources:
+        - path: /v1/meals
+          name: meals
+          operations:
+            - method: GET
+              name: search-meals
+              description: "Search meals by name"
+              call: "mealdb.search-meals"
+              with:
+                s: "rest.s"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/meals/{id}
+          name: meal-detail
+          operations:
+            - method: GET
+              name: lookup-meal
+              description: "Look up a meal by ID"
+              call: "mealdb.lookup-meal-by-id"
+              with:
+                i: "rest.id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9101
+      namespace: mealdb-mcp
+      transport: http
+      tools:
+        - name: search-meals
+          description: "Search for meals by name"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "mealdb.search-meals"
+          with:
+            s: "tools.s"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: lookup-meal-by-id
+          description: "Look up full meal details by ID"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "mealdb.lookup-meal-by-id"
+          with:
+            i: "tools.i"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-random-meal
+          description: "Get a random meal recipe"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "mealdb.get-random-meal"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: filter-meals
+          description: "Filter meals by ingredient, category, or region"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "mealdb.filter-meals"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-categories
+          description: "List all meal categories"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "mealdb.list-all-categories"
+          outputParameters:
+            - type: object
+              mapping: "$."

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/themealdb/refs/heads/main/json-structure/themealdb-filter-response-structure.json",
+  "name": "FilterResponse",
+  "description": "Filtered meal list with summary information only",
+  "type": "object",
+  "properties": {
+    "meals": {
+      "type": "array",
+      "description": "Array of meal summaries",
+      "nullable": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "strMeal": {
+            "type": "string",
+            "description": "Meal name"
+          },
+          "strMealThumb": {
+            "type": "string",
+            "description": "Thumbnail URL"
+          },
+          "idMeal": {
+            "type": "string",
+            "description": "Meal ID"
+          }
+        }
+      }
+    }
+  }
+}

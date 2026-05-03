@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/themealdb/refs/heads/main/json-structure/themealdb-meal-structure.json",
+  "name": "Meal",
+  "description": "Full meal details including ingredients, instructions, and media",
+  "type": "object",
+  "properties": {
+    "idMeal": {
+      "type": "string",
+      "description": "Unique meal identifier",
+      "example": "52772"
+    },
+    "strMeal": {
+      "type": "string",
+      "description": "Meal name",
+      "example": "Teriyaki Chicken Casserole"
+    },
+    "strCategory": {
+      "type": "string",
+      "description": "Meal category",
+      "example": "Chicken"
+    },
+    "strArea": {
+      "type": "string",
+      "description": "Cuisine area/region of origin",
+      "example": "Japanese"
+    },
+    "strInstructions": {
+      "type": "string",
+      "description": "Step-by-step preparation instructions"
+    },
+    "strMealThumb": {
+      "type": "string",
+      "description": "Thumbnail image URL",
+      "example": "https://www.themealdb.com/images/media/meals/wvpsxx1468256321.jpg"
+    },
+    "strTags": {
+      "type": "string",
+      "description": "Comma-separated tags",
+      "nullable": true
+    },
+    "strYoutube": {
+      "type": "string",
+      "description": "YouTube video URL for the recipe",
+      "nullable": true
+    },
+    "strIngredient1": {
+      "type": "string",
+      "description": "First ingredient",
+      "nullable": true
+    },
+    "strIngredient2": {
+      "type": "string",
+      "description": "Second ingredient",
+      "nullable": true
+    },
+    "strIngredient3": {
+      "type": "string",
+      "description": "Third ingredient",
+      "nullable": true
+    },
+    "strMeasure1": {
+      "type": "string",
+      "description": "Measure for first ingredient",
+      "nullable": true
+    },
+    "strMeasure2": {
+      "type": "string",
+      "description": "Measure for second ingredient",
+      "nullable": true
+    },
+    "strMeasure3": {
+      "type": "string",
+      "description": "Measure for third ingredient",
+      "nullable": true
+    },
+    "strSource": {
+      "type": "string",
+      "description": "Source URL for the recipe",
+      "nullable": true
+    },
+    "dateModified": {
+      "type": "string",
+      "description": "Date last modified",
+      "nullable": true
+    }
+  }
+}
