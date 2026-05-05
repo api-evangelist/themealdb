@@ -1,9 +1,7 @@
 aid: themealdb
 name: TheMealDB
-description: >-
-  TheMealDB is a comprehensive online platform offering a vast collection of
-  recipes from around the world with a free API. The API and site will always
-  remain free at point of access.
+description: TheMealDB is a comprehensive online platform offering a vast collection of recipes from around
+  the world with a free API. The API and site will always remain free at point of access.
 type: Index
 position: Consumer
 access: 3rd-Party
@@ -14,19 +12,16 @@ tags:
   - Food
   - Cooking
 created: '2024-11-14'
-modified: '2026-05-03'
-url: >-
-  https://raw.githubusercontent.com/api-evangelist/themealdb/refs/heads/main/apis.yml
+modified: '2026-05-04'
+url: https://raw.githubusercontent.com/api-evangelist/themealdb/refs/heads/main/apis.yml
 specificationVersion: '0.19'
 apis:
   - aid: themealdb:themealdb
     name: TheMealDB API
-    description: >-
-      Free Recipe API providing access to a crowd-sourced database of meals
-      from around the world. Search by name, category, area/region, or
-      ingredient. Look up full recipes with step-by-step instructions,
-      ingredients, measurements, YouTube videos, and images. The API and site
-      will always remain free at point of access.
+    description: Free Recipe API providing access to a crowd-sourced database of meals from around the
+      world. Search by name, category, area/region, or ingredient. Look up full recipes with step-by-step
+      instructions, ingredients, measurements, YouTube videos, and images. The API and site will always
+      remain free at point of access.
     humanURL: https://www.themealdb.com/api.php
     baseURL: https://www.themealdb.com/api/json/v1/1
     tags:
@@ -74,24 +69,12 @@ common:
     title: Meal Recipe Discovery
   - type: Features
     data:
-      - name: Meal Search
-        description: Search meals by name or browse alphabetically by first letter
-      - name: Category Browse
-        description: Browse by category (Beef, Chicken, Seafood, Dessert, Pasta, etc.)
-      - name: Regional Cuisine
-        description: Filter by area/region (Italian, Japanese, Mexican, Indian, etc.)
-      - name: Ingredient Filtering
-        description: Find meals that use a specific ingredient
-      - name: Random Meal
-        description: Retrieve a random meal for cooking inspiration
-      - name: Full Recipe Details
-        description: Complete recipes with up to 20 ingredients, measurements, and instructions
-      - name: YouTube Integration
-        description: Video cooking tutorials linked in recipe data
-      - name: Images
-        description: Meal and ingredient images available in multiple sizes
-      - name: Category Details
-        description: Full category listing with thumbnails and descriptions
+      - 'TheMealDB: free public API'
+      - Free public meal recipe API. Patreon supporters get premium API key with no rate limits.
+      - 'Public URL: https://www.themealdb.com/'
+    sources:
+      - https://www.themealdb.com/api.php
+    updated: '2026-05-04'
   - type: UseCases
     data:
       - name: Recipe App Development

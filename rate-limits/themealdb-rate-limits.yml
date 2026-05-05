@@ -1,0 +1,24 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: TheMealDB
+providerId: themealdb
+created: '2026-05-04'
+modified: '2026-05-04'
+reconciled: true
+tags:
+  - Rate Limiting
+  - Recipes / Open Data
+  - Niche
+description: TheMealDB rate limits keep the public API usable for everyone.
+sources:
+  - https://www.themealdb.com/api.php
+headers: {}
+responseCodes:
+  throttled: 429
+limits:
+  - name: Public API
+    scope: ip
+    metric: requests_per_minute
+    limit: varies (typically 60-300)
+    notes: Be a good citizen; cache responses.
