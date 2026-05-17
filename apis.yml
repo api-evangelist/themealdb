@@ -41,7 +41,7 @@ apis:
       - type: JSONStructure
         url: json-structure/themealdb-meal-structure.json
         title: Meal Structure
-      - type: JSON-LD
+      - type: JSONLD
         url: json-ld/themealdb-context.jsonld
         title: TheMealDB JSON-LD Context
 common:
@@ -49,7 +49,7 @@ common:
     url: https://www.themealdb.com/
   - type: Documentation
     url: https://www.themealdb.com/api.php
-  - type: Sign Up
+  - type: SignUp
     url: https://www.themealdb.com/
   - type: Pricing
     url: https://www.themealdb.com/
