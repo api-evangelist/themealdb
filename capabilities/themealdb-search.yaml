@@ -1,0 +1,82 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: TheMealDB API — Search
+  description: 'TheMealDB API — Search. 1 operations. Lead operation: TheMealDB Search Meals by Name or First Letter. Self-contained
+    Naftiko capability covering one Themealdb business surface.'
+  tags:
+  - Themealdb
+  - Search
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    THEMEALDB_API_KEY: THEMEALDB_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: themealdb-search
+    baseUri: https://www.themealdb.com/api/json/v1/1
+    description: TheMealDB API — Search business capability. Self-contained, no shared references.
+    resources:
+    - name: search.php
+      path: /search.php
+      operations:
+      - name: searchmeals
+        method: GET
+        description: TheMealDB Search Meals by Name or First Letter
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: s
+          in: query
+          type: string
+          description: Meal name to search (e.g. Arrabiata, chicken)
+        - name: f
+          in: query
+          type: string
+          description: First letter to browse meals alphabetically (single letter a-z)
+  exposes:
+  - type: rest
+    namespace: themealdb-search-rest
+    port: 8080
+    description: REST adapter for TheMealDB API — Search. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/search-php
+      name: search-php
+      description: REST surface for search.php.
+      operations:
+      - method: GET
+        name: searchmeals
+        description: TheMealDB Search Meals by Name or First Letter
+        call: themealdb-search.searchmeals
+        with:
+          s: rest.s
+          f: rest.f
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: themealdb-search-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for TheMealDB API — Search. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: themealdb-search-meals-name-first
+      description: TheMealDB Search Meals by Name or First Letter
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: themealdb-search.searchmeals
+      with:
+        s: tools.s
+        f: tools.f
+      outputParameters:
+      - type: object
+        mapping: $.

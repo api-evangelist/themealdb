@@ -1,0 +1,120 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: TheMealDB API — List
+  description: 'TheMealDB API — List. 2 operations. Lead operation: TheMealDB List All Meal Categories. Self-contained Naftiko
+    capability covering one Themealdb business surface.'
+  tags:
+  - Themealdb
+  - List
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    THEMEALDB_API_KEY: THEMEALDB_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: themealdb-list
+    baseUri: https://www.themealdb.com/api/json/v1/1
+    description: TheMealDB API — List business capability. Self-contained, no shared references.
+    resources:
+    - name: categories.php
+      path: /categories.php
+      operations:
+      - name: listallcategories
+        method: GET
+        description: TheMealDB List All Meal Categories
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: list.php
+      path: /list.php
+      operations:
+      - name: listfiltervalues
+        method: GET
+        description: TheMealDB List Filter Values for Categories, Areas, or Ingredients
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: c
+          in: query
+          type: string
+          description: Set to 'list' to retrieve all categories
+        - name: a
+          in: query
+          type: string
+          description: Set to 'list' to retrieve all areas/regions
+        - name: i
+          in: query
+          type: string
+          description: Set to 'list' to retrieve all ingredients
+  exposes:
+  - type: rest
+    namespace: themealdb-list-rest
+    port: 8080
+    description: REST adapter for TheMealDB API — List. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/categories-php
+      name: categories-php
+      description: REST surface for categories.php.
+      operations:
+      - method: GET
+        name: listallcategories
+        description: TheMealDB List All Meal Categories
+        call: themealdb-list.listallcategories
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/list-php
+      name: list-php
+      description: REST surface for list.php.
+      operations:
+      - method: GET
+        name: listfiltervalues
+        description: TheMealDB List Filter Values for Categories, Areas, or Ingredients
+        call: themealdb-list.listfiltervalues
+        with:
+          c: rest.c
+          a: rest.a
+          i: rest.i
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: themealdb-list-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for TheMealDB API — List. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: themealdb-list-all-meal-categories
+      description: TheMealDB List All Meal Categories
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: themealdb-list.listallcategories
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: themealdb-list-filter-values-categories
+      description: TheMealDB List Filter Values for Categories, Areas, or Ingredients
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: themealdb-list.listfiltervalues
+      with:
+        c: tools.c
+        a: tools.a
+        i: tools.i
+      outputParameters:
+      - type: object
+        mapping: $.

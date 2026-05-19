@@ -1,0 +1,88 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: TheMealDB API — Filter
+  description: 'TheMealDB API — Filter. 1 operations. Lead operation: TheMealDB Filter Meals by Ingredient, Category, or Area.
+    Self-contained Naftiko capability covering one Themealdb business surface.'
+  tags:
+  - Themealdb
+  - Filter
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    THEMEALDB_API_KEY: THEMEALDB_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: themealdb-filter
+    baseUri: https://www.themealdb.com/api/json/v1/1
+    description: TheMealDB API — Filter business capability. Self-contained, no shared references.
+    resources:
+    - name: filter.php
+      path: /filter.php
+      operations:
+      - name: filtermeals
+        method: GET
+        description: TheMealDB Filter Meals by Ingredient, Category, or Area
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: i
+          in: query
+          type: string
+          description: Filter by main ingredient
+        - name: c
+          in: query
+          type: string
+          description: Filter by category
+        - name: a
+          in: query
+          type: string
+          description: Filter by area/region of origin
+  exposes:
+  - type: rest
+    namespace: themealdb-filter-rest
+    port: 8080
+    description: REST adapter for TheMealDB API — Filter. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/filter-php
+      name: filter-php
+      description: REST surface for filter.php.
+      operations:
+      - method: GET
+        name: filtermeals
+        description: TheMealDB Filter Meals by Ingredient, Category, or Area
+        call: themealdb-filter.filtermeals
+        with:
+          i: rest.i
+          c: rest.c
+          a: rest.a
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: themealdb-filter-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for TheMealDB API — Filter. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: themealdb-filter-meals-ingredient-category
+      description: TheMealDB Filter Meals by Ingredient, Category, or Area
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: themealdb-filter.filtermeals
+      with:
+        i: tools.i
+        c: tools.c
+        a: tools.a
+      outputParameters:
+      - type: object
+        mapping: $.
