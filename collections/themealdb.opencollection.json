@@ -1,0 +1,170 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TheMealDB API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "TheMealDB Search Meals by Name or First Letter",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.themealdb.com/api/json/v1/1/search.php",
+            "params": [
+              {
+                "name": "s",
+                "value": "",
+                "type": "query",
+                "description": "Meal name to search (e.g. Arrabiata, chicken)"
+              },
+              {
+                "name": "f",
+                "value": "",
+                "type": "query",
+                "description": "First letter to browse meals alphabetically (single letter a-z)"
+              }
+            ]
+          },
+          "docs": "Search for meals by name using the 's' parameter, or browse meals starting with a specific first letter using the 'f' parameter."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Lookup",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "TheMealDB Lookup Meal Details by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.themealdb.com/api/json/v1/1/lookup.php",
+            "params": [
+              {
+                "name": "i",
+                "value": "",
+                "type": "query",
+                "description": "Meal ID to look up"
+              }
+            ]
+          },
+          "docs": "Look up the full details of a meal by its ID using the 'i' parameter."
+        },
+        {
+          "info": {
+            "name": "TheMealDB Get a Random Meal",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.themealdb.com/api/json/v1/1/random.php"
+          },
+          "docs": "Retrieve a single random meal with full recipe details."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "List",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "TheMealDB List All Meal Categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.themealdb.com/api/json/v1/1/categories.php"
+          },
+          "docs": "Retrieve all meal categories with thumbnails and descriptions."
+        },
+        {
+          "info": {
+            "name": "TheMealDB List Filter Values for Categories, Areas, or Ingredients",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.themealdb.com/api/json/v1/1/list.php",
+            "params": [
+              {
+                "name": "c",
+                "value": "",
+                "type": "query",
+                "description": "Set to 'list' to retrieve all categories"
+              },
+              {
+                "name": "a",
+                "value": "",
+                "type": "query",
+                "description": "Set to 'list' to retrieve all areas/regions"
+              },
+              {
+                "name": "i",
+                "value": "",
+                "type": "query",
+                "description": "Set to 'list' to retrieve all ingredients"
+              }
+            ]
+          },
+          "docs": "List all available categories ('c=list'), areas ('a=list'), or ingredients ('i=list') for use as filter parameters."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Filter",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "TheMealDB Filter Meals by Ingredient, Category, or Area",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.themealdb.com/api/json/v1/1/filter.php",
+            "params": [
+              {
+                "name": "i",
+                "value": "",
+                "type": "query",
+                "description": "Filter by main ingredient"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query",
+                "description": "Filter by category"
+              },
+              {
+                "name": "a",
+                "value": "",
+                "type": "query",
+                "description": "Filter by area/region of origin"
+              }
+            ]
+          },
+          "docs": "Filter meals by a single ingredient ('i'), category ('c'), or area/region ('a'). Multi-ingredient filtering is available to premium supporters."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
