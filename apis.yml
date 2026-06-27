@@ -50,7 +50,7 @@ common:
     url: https://www.themealdb.com/
   - type: Documentation
     url: https://www.themealdb.com/api.php
-  - type: SignUp
+  - type: Signup
     url: https://www.themealdb.com/
   - type: Pricing
     url: https://www.themealdb.com/
