@@ -46,6 +46,8 @@ apis:
         url: json-ld/themealdb-context.jsonld
         title: TheMealDB JSON-LD Context
 common:
+  - type: DomainSecurity
+    url: security/themealdb-domain-security.yml
   - type: Website
     url: https://www.themealdb.com/
   - type: Documentation
