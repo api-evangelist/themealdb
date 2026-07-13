@@ -1,6 +1,20 @@
+# themealdb — Spectral ruleset (strengthened)
+# Plain Spectral. Existing hand-authored rules preserved; measured rules added
+# from this provider's own OpenAPI conventions by strengthen_ruleset.py,
+# then self-validated against the spec.
+#
+# Provenance:
+#   - servers-https-only: 100% of servers already https (error)
+#   - servers-expected-domain: 1/1 servers on themealdb.com
+#   - query-params-casing: snake @ 100% (n=9)
+#   - operationid-casing: camel @ 100% (n=6)
+#   - schema-names-casing: pascal @ 100% (n=6)
+#   - schema-properties-casing: camel @ 83% (n=24)
+#   - merge: kept 18 existing, added 5 measured, upgraded 0
+#   - added: servers-expected-domain, query-params-casing, operationid-casing, schema-names-casing, schema-properties-casing
+extends:
+  - spectral:oas
 rules:
-
-  # INFO / METADATA
   info-title-required:
     description: Info object must have a title
     severity: error
@@ -8,7 +22,6 @@ rules:
     then:
       field: title
       function: truthy
-
   info-description-required:
     description: Info object must have a description
     severity: warn
@@ -16,7 +29,6 @@ rules:
     then:
       field: description
       function: truthy
-
   info-version-required:
     description: API version must be defined
     severity: error
@@ -24,8 +36,6 @@ rules:
     then:
       field: version
       function: truthy
-
-  # OPENAPI VERSION
   openapi-version-3:
     description: OpenAPI version should be 3.x
     severity: warn
@@ -34,9 +44,7 @@ rules:
       field: openapi
       function: pattern
       functionOptions:
-        match: "^3\\."
-
-  # SERVERS
+        match: ^3\.
   servers-defined:
     description: Servers array must be defined
     severity: error
@@ -44,7 +52,6 @@ rules:
     then:
       field: servers
       function: truthy
-
   servers-https:
     description: Server URLs must use HTTPS
     severity: error
@@ -52,9 +59,7 @@ rules:
     then:
       function: pattern
       functionOptions:
-        match: "^https://"
-
-  # OPERATIONS
+        match: ^https://
   operation-summary-required:
     description: Operations must have a summary
     severity: error
@@ -62,7 +67,6 @@ rules:
     then:
       field: summary
       function: truthy
-
   operation-description-required:
     description: Operations must have a description
     severity: warn
@@ -70,7 +74,6 @@ rules:
     then:
       field: description
       function: truthy
-
   operation-operationId-required:
     description: Operations must have an operationId
     severity: error
@@ -78,7 +81,6 @@ rules:
     then:
       field: operationId
       function: truthy
-
   operation-tags-required:
     description: Operations must have at least one tag
     severity: warn
@@ -86,7 +88,6 @@ rules:
     then:
       field: tags
       function: truthy
-
   operation-summary-provider-prefix:
     description: Operation summaries should start with 'TheMealDB'
     severity: info
@@ -94,9 +95,7 @@ rules:
     then:
       function: pattern
       functionOptions:
-        match: "^TheMealDB "
-
-  # PARAMETERS
+        match: '^TheMealDB '
   parameter-description-required:
     description: Parameters must have descriptions
     severity: warn
@@ -104,8 +103,6 @@ rules:
     then:
       field: description
       function: truthy
-
-  # RESPONSES
   response-success-required:
     description: Operations must have a success response
     severity: error
@@ -116,7 +113,6 @@ rules:
         schema:
           type: object
           minProperties: 1
-
   response-description-required:
     description: Response objects must have a description
     severity: warn
@@ -124,8 +120,6 @@ rules:
     then:
       field: description
       function: truthy
-
-  # SCHEMAS
   schema-type-defined:
     description: Schema objects should have a type
     severity: warn
@@ -133,8 +127,6 @@ rules:
     then:
       field: type
       function: truthy
-
-  # HTTP METHODS
   get-no-request-body:
     description: GET operations must not have a request body
     severity: error
@@ -142,8 +134,6 @@ rules:
     then:
       field: requestBody
       function: falsy
-
-  # GENERAL QUALITY
   no-empty-descriptions:
     description: Descriptions must not be empty
     severity: warn
@@ -151,8 +141,7 @@ rules:
     then:
       function: pattern
       functionOptions:
-        match: ".+"
-
+        match: .+
   operation-examples-encouraged:
     description: Operations should have examples
     severity: info
@@ -160,3 +149,46 @@ rules:
     then:
       field: examples
       function: defined
+  servers-expected-domain:
+    description: Server URLs should be on the themealdb.com domain.
+    severity: warn
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: themealdb\.com
+  query-params-casing:
+    description: Query parameters should be snake_case (the dominant convention in this API).
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].parameters[?(@.in=='query')]
+    then:
+      field: name
+      function: casing
+      functionOptions:
+        type: snake
+  operationid-casing:
+    description: Operation IDs should be camelCase (the dominant convention in this API).
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].operationId
+    then:
+      function: casing
+      functionOptions:
+        type: camel
+  schema-names-casing:
+    description: Component schema names should be PascalCase (the dominant convention in this API).
+    severity: warn
+    given: $.components.schemas
+    then:
+      field: '@key'
+      function: casing
+      functionOptions:
+        type: pascal
+  schema-properties-casing:
+    description: Schema properties should be camelCase (the dominant convention in this API).
+    severity: info
+    given: $.components.schemas[*].properties
+    then:
+      field: '@key'
+      function: casing
+      functionOptions:
+        type: camel
