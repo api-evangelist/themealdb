@@ -46,6 +46,8 @@ apis:
         url: json-ld/themealdb-context.jsonld
         title: TheMealDB JSON-LD Context
 common:
+  - type: AgenticAccess
+    url: agentic-access/themealdb-agentic-access.yml
   - type: DomainSecurity
     url: security/themealdb-domain-security.yml
   - type: Website
