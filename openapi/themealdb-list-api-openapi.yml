@@ -1,0 +1,134 @@
+openapi: 3.0.3
+info:
+  title: TheMealDB Filter List API
+  description: An open, crowd-sourced database of recipes from around the world with a free API. Search meals by name, first letter, ingredient, category, or area/region. Includes detailed recipes with ingredients, measurements, instructions, and images. The API and site will always remain free at point of access.
+  version: '1.0'
+  contact:
+    url: https://www.themealdb.com/
+  x-generated-from: documentation
+servers:
+- url: https://www.themealdb.com/api/json/v1/1
+  description: Production API server (free tier with API key 1)
+security: []
+tags:
+- name: List
+  description: List available categories, areas, and ingredients
+paths:
+  /categories.php:
+    get:
+      operationId: listAllCategories
+      summary: TheMealDB List All Meal Categories
+      description: Retrieve all meal categories with thumbnails and descriptions.
+      tags:
+      - List
+      responses:
+        '200':
+          description: List of all meal categories
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoriesResponse'
+              examples:
+                ListAllCategories200Example:
+                  summary: Default listAllCategories 200 response
+                  x-microcks-default: true
+                  value:
+                    categories:
+                    - idCategory: '1'
+                      strCategory: Beef
+                      strCategoryThumb: https://www.themealdb.com/images/category/beef.png
+                      strCategoryDescription: Beef is the culinary name for meat from cattle.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /list.php:
+    get:
+      operationId: listFilterValues
+      summary: TheMealDB List Filter Values for Categories, Areas, or Ingredients
+      description: List all available categories ('c=list'), areas ('a=list'), or ingredients ('i=list') for use as filter parameters.
+      tags:
+      - List
+      parameters:
+      - name: c
+        in: query
+        description: Set to 'list' to retrieve all categories
+        required: false
+        schema:
+          type: string
+          enum:
+          - list
+      - name: a
+        in: query
+        description: Set to 'list' to retrieve all areas/regions
+        required: false
+        schema:
+          type: string
+          enum:
+          - list
+      - name: i
+        in: query
+        description: Set to 'list' to retrieve all ingredients
+        required: false
+        schema:
+          type: string
+          enum:
+          - list
+      responses:
+        '200':
+          description: List of available filter values
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse'
+              examples:
+                ListFilterValues200Example:
+                  summary: Default listFilterValues 200 response
+                  x-microcks-default: true
+                  value:
+                    meals:
+                    - strCategory: Beef
+                    - strCategory: Chicken
+                    - strCategory: Dessert
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Category:
+      type: object
+      description: Meal category with thumbnail and description
+      properties:
+        idCategory:
+          type: string
+          description: Unique category identifier
+          example: '1'
+        strCategory:
+          type: string
+          description: Category name
+          example: Beef
+        strCategoryThumb:
+          type: string
+          description: Category thumbnail image URL
+        strCategoryDescription:
+          type: string
+          description: Description of the category
+    CategoriesResponse:
+      type: object
+      description: Response containing list of meal categories
+      properties:
+        categories:
+          type: array
+          description: Array of category objects
+          items:
+            $ref: '#/components/schemas/Category'
+    ListResponse:
+      type: object
+      description: List of available filter values
+      properties:
+        meals:
+          type: array
+          description: Array of list items
+          items:
+            type: object
+            additionalProperties:
+              type: string

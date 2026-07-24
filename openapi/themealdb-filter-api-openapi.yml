@@ -1,0 +1,86 @@
+openapi: 3.0.3
+info:
+  title: TheMealDB Filter API
+  description: An open, crowd-sourced database of recipes from around the world with a free API. Search meals by name, first letter, ingredient, category, or area/region. Includes detailed recipes with ingredients, measurements, instructions, and images. The API and site will always remain free at point of access.
+  version: '1.0'
+  contact:
+    url: https://www.themealdb.com/
+  x-generated-from: documentation
+servers:
+- url: https://www.themealdb.com/api/json/v1/1
+  description: Production API server (free tier with API key 1)
+security: []
+tags:
+- name: Filter
+  description: Filter meals by attributes
+paths:
+  /filter.php:
+    get:
+      operationId: filterMeals
+      summary: TheMealDB Filter Meals by Ingredient, Category, or Area
+      description: Filter meals by a single ingredient ('i'), category ('c'), or area/region ('a'). Multi-ingredient filtering is available to premium supporters.
+      tags:
+      - Filter
+      parameters:
+      - name: i
+        in: query
+        description: Filter by main ingredient
+        required: false
+        schema:
+          type: string
+          example: chicken_breast
+      - name: c
+        in: query
+        description: Filter by category
+        required: false
+        schema:
+          type: string
+          example: Seafood
+      - name: a
+        in: query
+        description: Filter by area/region of origin
+        required: false
+        schema:
+          type: string
+          example: Canadian
+      responses:
+        '200':
+          description: Filtered meal list with summary information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FilterResponse'
+              examples:
+                FilterMeals200Example:
+                  summary: Default filterMeals 200 response
+                  x-microcks-default: true
+                  value:
+                    meals:
+                    - strMeal: Brown Stew Chicken
+                      strMealThumb: https://www.themealdb.com/images/media/meals/sypxpx1515365095.jpg
+                      idMeal: '52772'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    FilterResponse:
+      type: object
+      description: Filtered meal list with summary information only
+      properties:
+        meals:
+          type: array
+          description: Array of meal summaries
+          nullable: true
+          items:
+            type: object
+            properties:
+              strMeal:
+                type: string
+                description: Meal name
+              strMealThumb:
+                type: string
+                description: Thumbnail URL
+              idMeal:
+                type: string
+                description: Meal ID

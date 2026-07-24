@@ -1,0 +1,140 @@
+openapi: 3.0.3
+info:
+  title: TheMealDB Filter Search API
+  description: An open, crowd-sourced database of recipes from around the world with a free API. Search meals by name, first letter, ingredient, category, or area/region. Includes detailed recipes with ingredients, measurements, instructions, and images. The API and site will always remain free at point of access.
+  version: '1.0'
+  contact:
+    url: https://www.themealdb.com/
+  x-generated-from: documentation
+servers:
+- url: https://www.themealdb.com/api/json/v1/1
+  description: Production API server (free tier with API key 1)
+security: []
+tags:
+- name: Search
+  description: Search for meals and ingredients
+paths:
+  /search.php:
+    get:
+      operationId: searchMeals
+      summary: TheMealDB Search Meals by Name or First Letter
+      description: Search for meals by name using the 's' parameter, or browse meals starting with a specific first letter using the 'f' parameter.
+      tags:
+      - Search
+      parameters:
+      - name: s
+        in: query
+        description: Meal name to search (e.g. Arrabiata, chicken)
+        required: false
+        schema:
+          type: string
+          example: Arrabiata
+      - name: f
+        in: query
+        description: First letter to browse meals alphabetically (single letter a-z)
+        required: false
+        schema:
+          type: string
+          example: a
+      responses:
+        '200':
+          description: Successful response with meal list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MealsResponse'
+              examples:
+                SearchMeals200Example:
+                  summary: Default searchMeals 200 response
+                  x-microcks-default: true
+                  value:
+                    meals:
+                    - idMeal: '52772'
+                      strMeal: Teriyaki Chicken Casserole
+                      strCategory: Chicken
+                      strArea: Japanese
+                      strInstructions: Preheat oven to 350 degrees. Combine soy sauce, honey, garlic, ginger, and pepper.
+                      strMealThumb: https://www.themealdb.com/images/media/meals/wvpsxx1468256321.jpg
+                      strTags: Meat,Casserole
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Meal:
+      type: object
+      description: Full meal details including ingredients, instructions, and media
+      properties:
+        idMeal:
+          type: string
+          description: Unique meal identifier
+          example: '52772'
+        strMeal:
+          type: string
+          description: Meal name
+          example: Teriyaki Chicken Casserole
+        strCategory:
+          type: string
+          description: Meal category
+          example: Chicken
+        strArea:
+          type: string
+          description: Cuisine area/region of origin
+          example: Japanese
+        strInstructions:
+          type: string
+          description: Step-by-step preparation instructions
+        strMealThumb:
+          type: string
+          description: Thumbnail image URL
+          example: https://www.themealdb.com/images/media/meals/wvpsxx1468256321.jpg
+        strTags:
+          type: string
+          description: Comma-separated tags
+          nullable: true
+        strYoutube:
+          type: string
+          description: YouTube video URL for the recipe
+          nullable: true
+        strIngredient1:
+          type: string
+          description: First ingredient
+          nullable: true
+        strIngredient2:
+          type: string
+          description: Second ingredient
+          nullable: true
+        strIngredient3:
+          type: string
+          description: Third ingredient
+          nullable: true
+        strMeasure1:
+          type: string
+          description: Measure for first ingredient
+          nullable: true
+        strMeasure2:
+          type: string
+          description: Measure for second ingredient
+          nullable: true
+        strMeasure3:
+          type: string
+          description: Measure for third ingredient
+          nullable: true
+        strSource:
+          type: string
+          description: Source URL for the recipe
+          nullable: true
+        dateModified:
+          type: string
+          description: Date last modified
+          nullable: true
+    MealsResponse:
+      type: object
+      description: Response containing a list of meals
+      properties:
+        meals:
+          type: array
+          description: Array of meal objects; null if no results found
+          nullable: true
+          items:
+            $ref: '#/components/schemas/Meal'

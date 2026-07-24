@@ -1,0 +1,159 @@
+openapi: 3.0.3
+info:
+  title: TheMealDB Filter Lookup API
+  description: An open, crowd-sourced database of recipes from around the world with a free API. Search meals by name, first letter, ingredient, category, or area/region. Includes detailed recipes with ingredients, measurements, instructions, and images. The API and site will always remain free at point of access.
+  version: '1.0'
+  contact:
+    url: https://www.themealdb.com/
+  x-generated-from: documentation
+servers:
+- url: https://www.themealdb.com/api/json/v1/1
+  description: Production API server (free tier with API key 1)
+security: []
+tags:
+- name: Lookup
+  description: Retrieve details by ID or random meal
+paths:
+  /lookup.php:
+    get:
+      operationId: lookupMealById
+      summary: TheMealDB Lookup Meal Details by ID
+      description: Look up the full details of a meal by its ID using the 'i' parameter.
+      tags:
+      - Lookup
+      parameters:
+      - name: i
+        in: query
+        description: Meal ID to look up
+        required: true
+        schema:
+          type: string
+          example: '52772'
+      responses:
+        '200':
+          description: Full meal details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MealsResponse'
+              examples:
+                LookupMealById200Example:
+                  summary: Default lookupMealById 200 response
+                  x-microcks-default: true
+                  value:
+                    meals:
+                    - idMeal: '52772'
+                      strMeal: Teriyaki Chicken Casserole
+                      strCategory: Chicken
+                      strArea: Japanese
+                      strInstructions: Preheat oven to 350 degrees.
+                      strMealThumb: https://www.themealdb.com/images/media/meals/wvpsxx1468256321.jpg
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /random.php:
+    get:
+      operationId: getRandomMeal
+      summary: TheMealDB Get a Random Meal
+      description: Retrieve a single random meal with full recipe details.
+      tags:
+      - Lookup
+      responses:
+        '200':
+          description: A random meal with complete recipe
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MealsResponse'
+              examples:
+                GetRandomMeal200Example:
+                  summary: Default getRandomMeal 200 response
+                  x-microcks-default: true
+                  value:
+                    meals:
+                    - idMeal: '53049'
+                      strMeal: Apam balik
+                      strCategory: Dessert
+                      strArea: Malaysian
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Meal:
+      type: object
+      description: Full meal details including ingredients, instructions, and media
+      properties:
+        idMeal:
+          type: string
+          description: Unique meal identifier
+          example: '52772'
+        strMeal:
+          type: string
+          description: Meal name
+          example: Teriyaki Chicken Casserole
+        strCategory:
+          type: string
+          description: Meal category
+          example: Chicken
+        strArea:
+          type: string
+          description: Cuisine area/region of origin
+          example: Japanese
+        strInstructions:
+          type: string
+          description: Step-by-step preparation instructions
+        strMealThumb:
+          type: string
+          description: Thumbnail image URL
+          example: https://www.themealdb.com/images/media/meals/wvpsxx1468256321.jpg
+        strTags:
+          type: string
+          description: Comma-separated tags
+          nullable: true
+        strYoutube:
+          type: string
+          description: YouTube video URL for the recipe
+          nullable: true
+        strIngredient1:
+          type: string
+          description: First ingredient
+          nullable: true
+        strIngredient2:
+          type: string
+          description: Second ingredient
+          nullable: true
+        strIngredient3:
+          type: string
+          description: Third ingredient
+          nullable: true
+        strMeasure1:
+          type: string
+          description: Measure for first ingredient
+          nullable: true
+        strMeasure2:
+          type: string
+          description: Measure for second ingredient
+          nullable: true
+        strMeasure3:
+          type: string
+          description: Measure for third ingredient
+          nullable: true
+        strSource:
+          type: string
+          description: Source URL for the recipe
+          nullable: true
+        dateModified:
+          type: string
+          description: Date last modified
+          nullable: true
+    MealsResponse:
+      type: object
+      description: Response containing a list of meals
+      properties:
+        meals:
+          type: array
+          description: Array of meal objects; null if no results found
+          nullable: true
+          items:
+            $ref: '#/components/schemas/Meal'
