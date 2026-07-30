@@ -4,9 +4,21 @@ description: >-
   TheMealDB is a comprehensive online platform offering a vast collection of recipes from around the world with a free
   API. The API and site will always remain free at point of access.
 type: Index
+accessModel:
+  pricing: free
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Free
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
 position: Consumer
 access: 3rd-Party
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/themealdb.png
 tags:
   - Recipes
   - Meals
@@ -17,34 +29,78 @@ modified: '2026-05-19'
 url: https://raw.githubusercontent.com/api-evangelist/themealdb/refs/heads/main/apis.yml
 specificationVersion: '0.19'
 apis:
-  - aid: themealdb:themealdb
-    name: TheMealDB API
-    description: >-
-      Free Recipe API providing access to a crowd-sourced database of meals from around the world. Search by name,
-      category, area/region, or ingredient. Look up full recipes with step-by-step instructions, ingredients,
-      measurements, YouTube videos, and images. The API and site will always remain free at point of access.
-    humanURL: https://www.themealdb.com/api.php
-    baseURL: https://www.themealdb.com/api/json/v1/1
-    tags:
-      - Recipes
-      - Meals
-      - Food
-      - Cooking
-      - Nutrition
-    properties:
-      - type: Documentation
-        url: https://www.themealdb.com/api.php
-      - type: OpenAPI
-        url: openapi/themealdb-openapi.yml
-      - type: JSONSchema
-        url: json-schema/themealdb-meal-schema.json
-        title: Meal Schema
-      - type: JSONStructure
-        url: json-structure/themealdb-meal-structure.json
-        title: Meal Structure
-      - type: JSONLD
-        url: json-ld/themealdb-context.jsonld
-        title: TheMealDB JSON-LD Context
+- aid: themealdb:themealdb-filter-api
+  name: TheMealDB Filter API
+  description: Filter meals by attributes
+  humanURL: https://www.themealdb.com/api.php
+  baseURL: https://www.themealdb.com/api/json/v1/1
+  tags:
+  - Filter
+  properties:
+  - type: OpenAPI
+    url: openapi/themealdb-filter-api-openapi.yml
+  - type: Documentation
+    url: https://www.themealdb.com/api.php
+  - type: JSONSchema
+    url: json-schema/themealdb-meal-schema.json
+  - type: JSONStructure
+    url: json-structure/themealdb-meal-structure.json
+  - type: JSONLD
+    url: json-ld/themealdb-context.jsonld
+- aid: themealdb:themealdb-list-api
+  name: TheMealDB List API
+  description: List available categories, areas, and ingredients
+  humanURL: https://www.themealdb.com/api.php
+  baseURL: https://www.themealdb.com/api/json/v1/1
+  tags:
+  - List
+  properties:
+  - type: OpenAPI
+    url: openapi/themealdb-list-api-openapi.yml
+  - type: Documentation
+    url: https://www.themealdb.com/api.php
+  - type: JSONSchema
+    url: json-schema/themealdb-meal-schema.json
+  - type: JSONStructure
+    url: json-structure/themealdb-meal-structure.json
+  - type: JSONLD
+    url: json-ld/themealdb-context.jsonld
+- aid: themealdb:themealdb-lookup-api
+  name: TheMealDB Lookup API
+  description: Retrieve details by ID or random meal
+  humanURL: https://www.themealdb.com/api.php
+  baseURL: https://www.themealdb.com/api/json/v1/1
+  tags:
+  - Lookup
+  properties:
+  - type: OpenAPI
+    url: openapi/themealdb-lookup-api-openapi.yml
+  - type: Documentation
+    url: https://www.themealdb.com/api.php
+  - type: JSONSchema
+    url: json-schema/themealdb-meal-schema.json
+  - type: JSONStructure
+    url: json-structure/themealdb-meal-structure.json
+  - type: JSONLD
+    url: json-ld/themealdb-context.jsonld
+- aid: themealdb:themealdb-search-api
+  name: TheMealDB Search API
+  description: Search for meals and ingredients
+  humanURL: https://www.themealdb.com/api.php
+  baseURL: https://www.themealdb.com/api/json/v1/1
+  tags:
+  - Search
+  properties:
+  - type: OpenAPI
+    url: openapi/themealdb-search-api-openapi.yml
+  - type: Documentation
+    url: https://www.themealdb.com/api.php
+  - type: JSONSchema
+    url: json-schema/themealdb-meal-schema.json
+  - type: JSONStructure
+    url: json-structure/themealdb-meal-structure.json
+  - type: JSONLD
+    url: json-ld/themealdb-context.jsonld
 common:
   - type: AgenticAccess
     url: agentic-access/themealdb-agentic-access.yml
