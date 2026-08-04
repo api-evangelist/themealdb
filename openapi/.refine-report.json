@@ -1,0 +1,20 @@
+{
+  "provider": "themealdb",
+  "sources": [
+    "themealdb-filter-api-openapi.yml",
+    "themealdb-list-api-openapi.yml",
+    "themealdb-lookup-api-openapi.yml",
+    "themealdb-search-api-openapi.yml"
+  ],
+  "outputs": [
+    "themealdb-filter-api-openapi.yml",
+    "themealdb-list-api-openapi.yml",
+    "themealdb-lookup-api-openapi.yml",
+    "themealdb-search-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
