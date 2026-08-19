@@ -1,0 +1,134 @@
+{
+  "item": [
+    {
+      "id": "93d10f07-3d69-485a-adc7-fc972705a073",
+      "name": "Filter",
+      "description": {
+        "content": "Filter meals by attributes",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6638f663-45e8-4945-b74d-d54971b06245",
+          "name": "TheMealDB Filter Meals by Ingredient, Category, or Area",
+          "request": {
+            "name": "TheMealDB Filter Meals by Ingredient, Category, or Area",
+            "description": {
+              "content": "Filter meals by a single ingredient ('i'), category ('c'), or area/region ('a'). Multi-ingredient filtering is available to premium supporters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "filter.php"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "i",
+                  "value": "<string>",
+                  "description": "Filter by main ingredient"
+                },
+                {
+                  "disabled": false,
+                  "key": "c",
+                  "value": "<string>",
+                  "description": "Filter by category"
+                },
+                {
+                  "disabled": false,
+                  "key": "a",
+                  "value": "<string>",
+                  "description": "Filter by area/region of origin"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5f111eca-2946-4068-9008-348bbbbc3743",
+              "name": "Filtered meal list with summary information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "filter.php"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "i",
+                      "value": "chicken_breast"
+                    },
+                    {
+                      "key": "c",
+                      "value": "Seafood"
+                    },
+                    {
+                      "key": "a",
+                      "value": "Canadian"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meals\": [\n    {\n      \"strMeal\": \"Brown Stew Chicken\",\n      \"strMealThumb\": \"https://www.themealdb.com/images/media/meals/sypxpx1515365095.jpg\",\n      \"idMeal\": \"52772\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://www.themealdb.com/api/json/v1/1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c788dc76-ca78-4637-91db-33d6d63e304a",
+    "name": "TheMealDB Filter API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "An open, crowd-sourced database of recipes from around the world with a free API. Search meals by name, first letter, ingredient, category, or area/region. Includes detailed recipes with ingredients, measurements, instructions, and images. The API and site will always remain free at point of access.",
+      "type": "text/plain"
+    }
+  }
+}

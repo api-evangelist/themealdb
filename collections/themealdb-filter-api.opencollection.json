@@ -1,0 +1,49 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TheMealDB Filter API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Filter",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "TheMealDB Filter Meals by Ingredient, Category, or Area",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.themealdb.com/api/json/v1/1/filter.php",
+            "params": [
+              {
+                "name": "i",
+                "value": "",
+                "type": "query",
+                "description": "Filter by main ingredient"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query",
+                "description": "Filter by category"
+              },
+              {
+                "name": "a",
+                "value": "",
+                "type": "query",
+                "description": "Filter by area/region of origin"
+              }
+            ]
+          },
+          "docs": "Filter meals by a single ingredient ('i'), category ('c'), or area/region ('a'). Multi-ingredient filtering is available to premium supporters."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

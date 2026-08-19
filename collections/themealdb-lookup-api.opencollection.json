@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TheMealDB Filter Lookup API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Lookup",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "TheMealDB Lookup Meal Details by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.themealdb.com/api/json/v1/1/lookup.php",
+            "params": [
+              {
+                "name": "i",
+                "value": "",
+                "type": "query",
+                "description": "Meal ID to look up"
+              }
+            ]
+          },
+          "docs": "Look up the full details of a meal by its ID using the 'i' parameter."
+        },
+        {
+          "info": {
+            "name": "TheMealDB Get a Random Meal",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.themealdb.com/api/json/v1/1/random.php"
+          },
+          "docs": "Retrieve a single random meal with full recipe details."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

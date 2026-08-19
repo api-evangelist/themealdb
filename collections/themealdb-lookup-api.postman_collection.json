@@ -1,0 +1,184 @@
+{
+  "item": [
+    {
+      "id": "7bb02ae7-62cc-4abc-acbe-8f6574ce0fb9",
+      "name": "Lookup",
+      "description": {
+        "content": "Retrieve details by ID or random meal",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5d4368e1-b48f-4b4f-8032-60bf8bcd410b",
+          "name": "TheMealDB Lookup Meal Details by ID",
+          "request": {
+            "name": "TheMealDB Lookup Meal Details by ID",
+            "description": {
+              "content": "Look up the full details of a meal by its ID using the 'i' parameter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lookup.php"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "i",
+                  "value": "<string>",
+                  "description": "(Required) Meal ID to look up"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ccaa3ba3-ddb8-4bb3-821a-fc40110898e4",
+              "name": "Full meal details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lookup.php"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "i",
+                      "value": "52772"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meals\": [\n    {\n      \"idMeal\": \"52772\",\n      \"strMeal\": \"Teriyaki Chicken Casserole\",\n      \"strCategory\": \"Chicken\",\n      \"strArea\": \"Japanese\",\n      \"strInstructions\": \"Preheat oven to 350 degrees.\",\n      \"strMealThumb\": \"https://www.themealdb.com/images/media/meals/wvpsxx1468256321.jpg\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4f985be0-0fb1-4d5a-840a-12c370980038",
+          "name": "TheMealDB Get a Random Meal",
+          "request": {
+            "name": "TheMealDB Get a Random Meal",
+            "description": {
+              "content": "Retrieve a single random meal with full recipe details.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "random.php"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "802a4fef-42e2-46de-a0fa-4842c81fe909",
+              "name": "A random meal with complete recipe",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "random.php"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meals\": [\n    {\n      \"idMeal\": \"53049\",\n      \"strMeal\": \"Apam balik\",\n      \"strCategory\": \"Dessert\",\n      \"strArea\": \"Malaysian\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://www.themealdb.com/api/json/v1/1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "8834db67-f753-4c8b-995b-5895e03ea97a",
+    "name": "TheMealDB Filter Lookup API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "An open, crowd-sourced database of recipes from around the world with a free API. Search meals by name, first letter, ingredient, category, or area/region. Includes detailed recipes with ingredients, measurements, instructions, and images. The API and site will always remain free at point of access.",
+      "type": "text/plain"
+    }
+  }
+}

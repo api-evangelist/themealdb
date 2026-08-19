@@ -1,0 +1,60 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TheMealDB Filter List API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "List",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "TheMealDB List All Meal Categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.themealdb.com/api/json/v1/1/categories.php"
+          },
+          "docs": "Retrieve all meal categories with thumbnails and descriptions."
+        },
+        {
+          "info": {
+            "name": "TheMealDB List Filter Values for Categories, Areas, or Ingredients",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.themealdb.com/api/json/v1/1/list.php",
+            "params": [
+              {
+                "name": "c",
+                "value": "",
+                "type": "query",
+                "description": "Set to 'list' to retrieve all categories"
+              },
+              {
+                "name": "a",
+                "value": "",
+                "type": "query",
+                "description": "Set to 'list' to retrieve all areas/regions"
+              },
+              {
+                "name": "i",
+                "value": "",
+                "type": "query",
+                "description": "Set to 'list' to retrieve all ingredients"
+              }
+            ]
+          },
+          "docs": "List all available categories ('c=list'), areas ('a=list'), or ingredients ('i=list') for use as filter parameters."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
