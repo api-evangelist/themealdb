@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: TheMealDB Filter API
   description: An open, crowd-sourced database of recipes from around the world with a free API. Search meals by name, first letter, ingredient, category, or area/region. Includes detailed recipes with ingredients, measurements, instructions, and images. The API and site will always remain free at point of access.
@@ -69,9 +69,10 @@ components:
       description: Filtered meal list with summary information only
       properties:
         meals:
-          type: array
+          type:
+          - array
+          - 'null'
           description: Array of meal summaries
-          nullable: true
           items:
             type: object
             properties:

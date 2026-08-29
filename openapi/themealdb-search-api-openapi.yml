@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: TheMealDB Filter Search API
   description: An open, crowd-sourced database of recipes from around the world with a free API. Search meals by name, first letter, ingredient, category, or area/region. Includes detailed recipes with ingredients, measurements, instructions, and images. The API and site will always remain free at point of access.
@@ -89,52 +89,63 @@ components:
           description: Thumbnail image URL
           example: https://www.themealdb.com/images/media/meals/wvpsxx1468256321.jpg
         strTags:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Comma-separated tags
-          nullable: true
         strYoutube:
-          type: string
+          type:
+          - string
+          - 'null'
           description: YouTube video URL for the recipe
-          nullable: true
         strIngredient1:
-          type: string
+          type:
+          - string
+          - 'null'
           description: First ingredient
-          nullable: true
         strIngredient2:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Second ingredient
-          nullable: true
         strIngredient3:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Third ingredient
-          nullable: true
         strMeasure1:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Measure for first ingredient
-          nullable: true
         strMeasure2:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Measure for second ingredient
-          nullable: true
         strMeasure3:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Measure for third ingredient
-          nullable: true
         strSource:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Source URL for the recipe
-          nullable: true
         dateModified:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Date last modified
-          nullable: true
     MealsResponse:
       type: object
       description: Response containing a list of meals
       properties:
         meals:
-          type: array
+          type:
+          - array
+          - 'null'
           description: Array of meal objects; null if no results found
-          nullable: true
           items:
             $ref: '#/components/schemas/Meal'
